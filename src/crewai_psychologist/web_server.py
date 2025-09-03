@@ -21,7 +21,7 @@ def chat():
         for msg in conversation
     ])
 
-    # === Handle exit/quit ===
+
     if user_input.strip().lower() in ['exit', 'quit']:
         try:
             summary_inputs = {"conversation": convo_text}

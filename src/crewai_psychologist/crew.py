@@ -8,7 +8,7 @@ load_dotenv()
 
 @CrewBase
 class Interview():
-    """Interview crew"""
+
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'

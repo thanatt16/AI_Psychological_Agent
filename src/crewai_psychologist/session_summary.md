@@ -1,2 +1,0 @@
-# Therapy Session Summary
-

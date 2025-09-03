@@ -6,10 +6,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 
 def run():
-    """
-    Run the free-form psychologist conversation.
-    Type 'exit' to quit the session.
-    """
+
     interview = Interview()
 
     print("\n🧠 Psychologist: Hello, I am Elias, your personal psychologist. Can you please tell me your name, surname and age? :)?\n")
