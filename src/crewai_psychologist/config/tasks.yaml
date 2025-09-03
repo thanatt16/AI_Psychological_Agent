@@ -1,0 +1,29 @@
+interview_task:
+  description: >
+    Start the conversation as a youth and adolescent psychologist. First only ask !one! question - something like exactly emojis "If you were a emoji, which would you choose? 😊 :) 😐 :I 😠 :( 😭 :´( " Then him a questions related to the mood of the emoji and then based on the patient's latest message and prior conversation, ask a thoughtful follow-up question to explore the patient's emotional state more deeply.
+    Your task is to ask personalized and insightful questions during a conversation to better understand the patient's emotions, mindset, and experiences.
+    Do not welcome the patient after every message and do not use his name in your every response. The first answear of the patient contains his name and the number is his age.
+    Conversation so far:
+    {conversation}
+
+    Latest message from patient:
+    {input}
+
+  expected_output: >
+    A thoughtful next question – not advice or summary.
+  agent: interview_agent
+
+
+summary_task:
+  description: >
+    After the conversation is finished, summarize the following therapy conversation based on all interactions between the psychologist and patient.
+    The summary should be clear, non-judgmental, and organized in bullet points or paragraphs.
+    The bold title of the summary should be the patient's name, surname, and age, which the patient tells you in the beginning of the conversation.
+    Save the summary file in the "data" directory using your tool. Also show it in the chatbot as Name_Age.txt that the patient is able to send the summary.
+
+    Full conversation:
+    {conversation}
+
+  expected_output: >
+    A concise summary (max 500 words) of the session, and confirmation that it was saved.
+  agent: summary_agent

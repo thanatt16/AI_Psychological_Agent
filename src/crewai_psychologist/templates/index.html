@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🧠 Psychologist Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Left: Persona GIF or Video -->
+  <div class="gif-panel">
+    <img src="{{ url_for('static', filename='1.gif') }}" alt="Digital Psychologist">
+  </div>
+
+  <!-- Right: Chatbot UI -->
+  <div class="chat-container">
+    <div class="chat-box" id="chat-box"></div>
+
+    <!-- Typing indicator (hidden by default) -->
+    <div class="message psychologist typing" id="typing-indicator" style="display: none;">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const chatForm = document.getElementById("chat-form");
+    const userInput = document.getElementById("user-input");
+    const typingIndicator = document.getElementById("typing-indicator");
+
+    window.onload = () => {
+      appendMessage("psychologist", " Hello, I am your HeartTalk friend. Can you please tell me your name and age? 😊");
+    };
+
+    chatForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      appendMessage("you", message);
+      userInput.value = "";
+
+      typingIndicator.style.display = "flex";
+      chatBox.appendChild(typingIndicator);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+        typingIndicator.remove();
+        appendMessage("psychologist", data.response);
+
+      } catch (error) {
+        typingIndicator.remove();
+        appendMessage("psychologist", "⚠️ Sorry, there was an error with the server.");
+      }
+    };
+
+    function appendMessage(role, text) {
+      const div = document.createElement("div");
+      div.className = "message " + role;
+      div.innerHTML = (role === "you" ? "<strong>👤You:</strong> " : "<strong> 🧠Psychologist:</strong> ") + text;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
